@@ -1,0 +1,25 @@
+<ion-card>
+  <ion-card-content>
+    <button (click)="showNearbyStops()">show stops</button>
+    <button (click)="showClosestStop()">closest stops</button>
+  </ion-card-content>
+</ion-card>
+
+<div *ngIf="routes">
+  <ion-card *ngFor="#route of routes">
+    <ion-card-header>
+      <span style="cursor: pointer;"
+            (click)="showRoute(route)">{{route.title}}</span>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="#stop of route.stops">
+          <h3 (click)="focusStop(stop.lat, stop.lng)" style="cursor: pointer;">{{stop.stopTitle}}</h3>
+          <p  *ngFor="#predictions of stop.dir">
+            {{predictions.title}} in <span style="color: crimson">{{predictions.prediction | prediction}}</span> min
+          </p>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</div>

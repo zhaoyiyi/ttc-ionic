@@ -1,5 +1,7 @@
 <ion-card>
   <ion-card-content>
+
+    {{ currentLocation | json }}
     <button (click)="showNearbyStops()">show stops</button>
     <button (click)="showClosestStop()">closest stops</button>
   </ion-card-content>

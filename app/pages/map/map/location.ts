@@ -1,18 +1,13 @@
 import { Observable } from 'rxjs/Rx';
+import { Geolocation } from 'ionic-native';
 
-// TODO: make only one location request
 export function getCurrentLocation(): Observable<any> {
-  if (navigator.geolocation) {
-    return Observable.create((observer) => {
-      navigator.geolocation.getCurrentPosition(position => {
-        console.log('getting current location...');
-        let pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
+
+  return Observable.fromPromise(Geolocation.getCurrentPosition())
+      .map(pos => {
+        return {
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude
         };
-        observer.next(pos);
-        observer.complete();
-      });
-    });
-  }
+      })
 }

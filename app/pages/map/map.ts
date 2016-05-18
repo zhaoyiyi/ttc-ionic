@@ -8,7 +8,6 @@ import { MapService } from "./map/map.service";
 @Page({
   templateUrl: 'build/pages/map/map.html',
   directives: [RouteComponent, StopsComponent, MapComponent],
-  providers: [RouteService, MapService]
 })
 export class MapPage {
  

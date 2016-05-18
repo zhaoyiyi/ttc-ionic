@@ -3,7 +3,6 @@ import * as Rx from 'rxjs/Rx';
 import { ICONSET } from './icon';
 import { zoom, addToBound, clear, clearMarker, animateMarker, addMarker } from './mapHelper';
 import { getCurrentLocation } from './location';
-import { Observable } from "rxjs/Observable";
 import { StopPrediction } from '../interface';
 declare var google, window;
 

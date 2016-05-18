@@ -8,4 +8,11 @@
     <stops (routeChange)="onRouteChange($event)"></stops>
   </ion-content>
 </ion-menu>
-<ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>
+
+<ion-content>
+  <ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>
+
+  <h2>.</h2>
+  <map [routeInfoStream]="routeInfoStream" [locationStream]="locationStream"></map>
+</ion-content>
+

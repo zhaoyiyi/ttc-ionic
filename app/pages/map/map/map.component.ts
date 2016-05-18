@@ -1,7 +1,6 @@
 import { Component, OnInit, OnChanges, Input } from 'angular2/core';
 import { MapService } from './map.service';
 import { Observable, Subscription } from 'rxjs';
-import { NavParams } from "ionic-angular";
 import { RouteService } from "../bus/route.service";
 
 
@@ -9,7 +8,7 @@ declare var google;
 @Component({
   selector: 'map',
   template: `
-    <div id="map" style="width: 100%; height: 100%;"></div>
+    <div id="map" style="width: 100%; height: 95%;"></div>
   `
 })
 export class MapComponent implements OnInit, OnChanges {

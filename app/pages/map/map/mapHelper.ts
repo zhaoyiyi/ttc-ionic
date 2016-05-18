@@ -1,4 +1,4 @@
-
+import * as $ from 'jquery';
 declare var google;
 export function addToBound(coord, bound) {
   let c = new google.maps.LatLng(coord.lat, coord.lng);
@@ -20,18 +20,18 @@ export function clearMarker(buses) {
   }
 }
 export function animateMarker(marker, coords, time = 5000) {
-  const oldPos = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()};
-  const newPos = {lat: coords.lat, lng: coords.lng};
+  const oldPos = { lat: marker.getPosition().lat(), lng: marker.getPosition().lng() };
+  const newPos = { lat: coords.lat, lng: coords.lng };
   $(oldPos).animate(newPos, {
     duration: time,
     step: function (now, fx) {
-      marker.setPosition({lat: fx.elem.lat, lng: fx.elem.lng});
+      marker.setPosition({ lat: fx.elem.lat, lng: fx.elem.lng });
     }
   });
 }
 export function addMarker(map, info, icon) {
   let marker = new google.maps.Marker({
-    position: {lat: +info.lat, lng: +info.lng},
+    position: { lat: +info.lat, lng: +info.lng },
     icon: icon,
     map: map
   });

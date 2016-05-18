@@ -19,7 +19,7 @@
         <ion-item *ngFor="#stop of route.stops">
           <h3 (click)="focusStop(stop.lat, stop.lng)" style="cursor: pointer;">{{stop.stopTitle}}</h3>
           <p  *ngFor="#predictions of stop.dir">
-            {{predictions.title}} in <span style="color: crimson">{{predictions.prediction | prediction}}</span> min
+            {{predictions.title | stopTitle}} in <span style="color: crimson">{{predictions.prediction | prediction}}</span> min
           </p>
         </ion-item>
       </ion-list>

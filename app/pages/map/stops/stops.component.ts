@@ -6,13 +6,14 @@ import { StopPrediction } from '../interface';
 import { Observable } from "rxjs/Rx";
 import { HTTP_PROVIDERS } from "angular2/http";
 import { Geolocation } from 'ionic-native';
+import { StopTitlePipe } from "./stop-title.pipe";
 
 
 @Component({
   selector: 'stops',
   templateUrl: 'build/pages/map/stops/stops.html',
   providers: [StopService, HTTP_PROVIDERS],
-  pipes: [PredictionPipe]
+  pipes: [PredictionPipe, StopTitlePipe]
 })
 export class StopsComponent implements OnInit {
   routes: Array;
@@ -31,6 +32,9 @@ export class StopsComponent implements OnInit {
       this.currentLocation = data;
       console.log('current location', data);
     });
+
+    Geolocation.watchPosition().subscribe( location => console.log(location) );
+
 
   }
 

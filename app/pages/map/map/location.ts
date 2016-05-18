@@ -4,7 +4,7 @@ import { Geolocation } from 'ionic-native';
 export function getCurrentLocation(): Observable<any> {
 
   return Observable.fromPromise(Geolocation.getCurrentPosition({
-    timeout: 10000, enableHighAccuracy: true
+    timeout: 10000, enableHighAccuracy: true, maximumAge: 10
   })).map(pos => {
     return {
       lat: pos.coords.latitude,

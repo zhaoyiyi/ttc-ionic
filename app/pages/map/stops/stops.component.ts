@@ -5,6 +5,8 @@ import { MapService } from "../map/map.service.ts";
 import { StopPrediction } from '../interface';
 import { Observable } from "rxjs/Rx";
 import { HTTP_PROVIDERS } from "angular2/http";
+import { Geolocation } from 'ionic-native';
+
 
 @Component({
   selector: 'stops',
@@ -14,6 +16,7 @@ import { HTTP_PROVIDERS } from "angular2/http";
 })
 export class StopsComponent implements OnInit {
   routes: Array;
+  pos: any;
   closestStop: StopPrediction;
   @Output() routeChange = new EventEmitter();
   currentLocation: Object = { lat: '', lng: '' };
@@ -26,7 +29,9 @@ export class StopsComponent implements OnInit {
   ngOnInit() {
     this._mapService.currentLocation.subscribe(data => {
       this.currentLocation = data;
+      console.log('current location', data);
     });
+
   }
 
   // Click button, then ask for prediction and draw stops
@@ -91,7 +96,7 @@ export class StopsComponent implements OnInit {
         .subscribe(stops => {
           const info = stops.map((stop: StopPrediction) => {
             let text = `${stop.stopTitle}<br>`;
-            if (stop.dir.length > 0) {
+            if (stop.dir && stop.dir.length > 0) {
               text += stop.dir.map(direction => {
                 const prediction = direction.prediction[0] ? direction.prediction[0].min : '';
                 return `${direction.title} - ${prediction}min<br>`;

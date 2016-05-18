@@ -29,8 +29,8 @@ class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-
       StatusBar.styleDefault();
+      console.log('device ready');
     });
   }
 

@@ -11,17 +11,10 @@ import { MapService } from "./map/map.service";
   providers: [RouteService, MapService]
 })
 export class MapPage {
-  routeInfoStream: any;
-  locationStream: any;
-
+ 
   constructor(public nav: NavController,
               private routeService: RouteService) {
   }
 
-  onRouteChange(routeNum) {
-    this.routeInfoStream = this.routeService.getRoute(routeNum);
-    this.locationStream = this.routeService.getBusLocations(routeNum);
-    console.log('sending route info...');
-  }
-
+ 
 }

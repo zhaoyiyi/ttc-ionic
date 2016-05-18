@@ -7,7 +7,7 @@ import 'rxjs/add/operator/pluck';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import { StopPrediction } from "../interface";
-import $ from 'jquery';
+import * as $ from 'jquery';
 
 @Injectable()
 export class StopService {

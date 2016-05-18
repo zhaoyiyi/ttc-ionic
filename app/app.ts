@@ -1,45 +1,44 @@
 import { App, IonicApp, Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
-import { HelloIonicPage } from './pages/hello-ionic/hello-ionic';
-import { ListPage } from './pages/list/list';
 import { MapPage } from './pages/map/map';
+import { RouteService } from "./pages/map/bus/route.service";
+import { RouteComponent } from "./pages/map/bus/route.component";
+import { StopsComponent } from "./pages/map/stops/stops.component";
+import { MapComponent } from "./pages/map/map/map.component";
+import { MapService } from "./pages/map/map/map.service";
 
 
 @App({
   templateUrl: 'build/app.html',
+  directives: [RouteComponent, StopsComponent, MapComponent],
+  providers: [RouteService, MapService],
   config: {} // http://ionicframework.com/docs/v2/api/config/Config/
 })
 class MyApp {
-  // make HelloIonicPage the root (or first) page
-  rootPage: any = HelloIonicPage;
-  pages: Array<{title: string, component: any}>;
+  rootPage: any = MapPage;
+  routeInfoStream: any;
+  locationStream: any;
 
   constructor(private app: IonicApp,
               private platform: Platform,
-              private menu: MenuController) {
+              private menu: MenuController,
+              private routeService: RouteService) {
     this.initializeApp();
 
-    // set our app's pages
-    this.pages = [
-      { title: 'Hello Ionic', component: HelloIonicPage },
-      { title: 'My First List', component: ListPage },
-      { title: 'Map', component: MapPage }
-    ];
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+
       StatusBar.styleDefault();
     });
   }
 
-  openPage(page) {
-    // close the menu when clicking a link from the menu
-    this.menu.close();
-    // navigate to the new page if it is not the current page
-    let nav = this.app.getComponent('nav');
-    nav.setRoot(page.component);
+  onRouteChange(routeNum) {
+    this.routeService.setRoute(routeNum);
+    this.routeInfoStream = this.routeService.getRoute(routeNum);
+    this.locationStream = this.routeService.getBusLocations(routeNum);
+    console.log('sending route info...');
   }
+
 }

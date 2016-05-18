@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter } from 'angular2/core';
+import { Component, OnInit, EventEmitter, Output } from 'angular2/core';
 import { PredictionPipe } from './prediction.pipe.ts';
 import { StopService } from "./stop.service.ts";
 import { MapService } from "../map/map.service.ts";
@@ -9,14 +9,13 @@ import { HTTP_PROVIDERS } from "angular2/http";
 @Component({
   selector: 'stops',
   templateUrl: 'build/pages/map/stops/stops.html',
-  outputs: ['routeChange'],
   providers: [StopService, HTTP_PROVIDERS],
   pipes: [PredictionPipe]
 })
 export class StopsComponent implements OnInit {
   routes: Array;
   closestStop: StopPrediction;
-  public routeChange = new EventEmitter();
+  @Output() routeChange = new EventEmitter();
   currentLocation: Object = { lat: '', lng: '' };
   prediction$: Observable<any>;
 

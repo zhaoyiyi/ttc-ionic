@@ -1,33 +1,38 @@
-import { Component, OnInit, OnChanges, EventEmitter } from 'angular2/core';
-import { HTTP_PROVIDERS } from 'angular2/http';
+import { Component, OnInit, OnChanges, Input } from 'angular2/core';
 import { MapService } from './map.service';
 import { Observable, Subscription } from 'rxjs';
+import { NavParams } from "ionic-angular";
+import { RouteService } from "../bus/route.service";
 
 
 declare var google;
 @Component({
   selector: 'map',
   template: `
-    <div id="map" style="width: 100%; height: 100vh;"></div>
-  `,
-  providers: [HTTP_PROVIDERS],
-  inputs: ['routeInfoStream', 'locationStream', 'testStream'],
+    <div id="map" style="width: 100%; height: 100%;"></div>
+  `
 })
 export class MapComponent implements OnInit, OnChanges {
-  public routeInfoStream:Observable<any>;
-  public locationStream:Observable<any>;
-  public testStream:Observable<any>;
-  public busLocations:Subscription;
-  public stops:any;
+  @Input() routeInfoStream: Observable<any>;
+  @Input() locationStream: Observable<any>;
+  public busLocations: Subscription;
+  public stops: any;
 
-  constructor(private _mapService:MapService) {
+  constructor(private _mapService: MapService,
+              private _routeService: RouteService) {
   }
 
   public ngOnInit() {
     this._mapService.loadMap('#map');
+    console.log(this._routeService.currentRoute);
+    this._routeService.getRoute()
+        .subscribe((num: string) => {
+          console.log(num);
+        }, err => console.log(err), () => console.log('complete'));
   }
 
   public ngOnChanges() {
+    console.log('on changes');
     if (this._mapService.isInitialized) this.updateRoute();
     if (this.locationStream) this.initBuses();
   }

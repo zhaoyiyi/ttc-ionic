@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import * as jQuery from 'jquery';
+import { Subject } from "rxjs/Subject";
 
 
 // const URL = `http://webservices.nextbus.com/service/publicXMLFeed?a=ttc`;
@@ -12,7 +13,18 @@ const URL = `https://yizhao.me/work/ttc/server/route.php?a=ttc`;
 @Injectable()
 export class RouteService {
 
+  currentRoute;
   constructor(private _http: Http) {
+    this.currentRoute = new Subject();
+  }
+
+  public setRoute(num: string) {
+    this.currentRoute.next(num);
+    console.log(num);
+  }
+
+  public getRoute() {
+    return this.currentRoute;
   }
 
   // Get bus locations

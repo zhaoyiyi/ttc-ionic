@@ -24,7 +24,6 @@ class MyApp {
               private menu: MenuController,
               private routeService: RouteService) {
     this.initializeApp();
-
   }
 
   initializeApp() {
@@ -34,8 +33,7 @@ class MyApp {
     });
   }
 
-  onRouteChange(routeNum) {
-    this.routeService.setRoute(routeNum);
+  onRouteChange(routeNum) { 
     this.routeInfoStream = this.routeService.getRoute(routeNum);
     this.locationStream = this.routeService.getBusLocations(routeNum);
     console.log('sending route info...');

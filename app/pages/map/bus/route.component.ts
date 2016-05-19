@@ -27,7 +27,10 @@ export class RouteComponent {
   constructor(private _routeService:RouteService) {
     // Emit route number when change item in dropdown list
     this.routeControl.valueChanges.subscribe(
-        routeNum => this.routeChange.emit(routeNum),
+        routeNum => {
+          this._routeService.nextRoute(routeNum);
+          this.routeChange.emit(routeNum)
+        },
         err => console.log('err in route component when emitting', err)
     );
     this.getRouteList();

@@ -1,10 +1,9 @@
 import { Injectable } from 'angular2/core';
 import { Http } from 'angular2/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import * as jQuery from 'jquery';
-import { Subject } from "rxjs/Subject";
 
 
 // const URL = `http://webservices.nextbus.com/service/publicXMLFeed?a=ttc`;
@@ -18,13 +17,13 @@ export class RouteService {
     this.currentRoute = new Subject();
   }
 
-  public setRoute(num: string) {
+  public nextRoute(num: string) {
     this.currentRoute.next(num);
     console.log(num);
   }
 
   public getRoute() {
-    return this.currentRoute;
+    return this.currentRoute.asObservable().map(data => data);
   }
 
   // Get bus locations

@@ -18,12 +18,8 @@ export class StopService {
   }
 
   public findStops(coord): Observable<any> {
-    console.log('getting stop json');
     return this._http.get('stops.json')
-        .mergeMap(res => {
-          console.log(res);
-          return res.json()
-        })
+        .mergeMap(res => res.json())
         .filter(stop => {
           return this.round(stop.lat, coord.lat) && this.round(stop.lng, coord.lng);
         })

@@ -8,7 +8,7 @@ declare var google;
 @Component({
   selector: 'map',
   template: `
-    <div id="map" style="width: 100%; height: 93%;"></div>
+    <div id="map" style="width: 100%; height: 92%;"></div>
   `
 })
 export class MapComponent implements OnInit, OnChanges {
@@ -19,15 +19,11 @@ export class MapComponent implements OnInit, OnChanges {
 
   constructor(private _mapService: MapService,
               private _routeService: RouteService) {
+
   }
 
   public ngOnInit() {
     this._mapService.loadMap('#map');
-    console.log(this._routeService.currentRoute);
-    this._routeService.getRoute()
-        .subscribe((num: string) => {
-          console.log(num);
-        }, err => console.log(err), () => console.log('complete'));
   }
 
   public ngOnChanges() {

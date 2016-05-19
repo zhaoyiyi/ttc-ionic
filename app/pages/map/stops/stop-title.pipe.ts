@@ -4,7 +4,6 @@ import {Pipe, PipeTransform} from 'angular2/core';
 })
 export class StopTitlePipe implements PipeTransform {
   public transform(value: string) {
-    console.log(value);
     return value.replace(/(.* - )(\d*\w?)(.*)/, '$2, $1');
   }
 }

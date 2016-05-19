@@ -15,6 +15,7 @@ export class MapService {
   private _stops: any;
   private _placeService: any;
   private _currentLocation: any;
+  private _selfMarker;
 
   get isInitialized() {
     return !!this._map;
@@ -22,6 +23,11 @@ export class MapService {
 
   get currentLocation() {
     return getCurrentLocation();
+  }
+
+  public setSelfMarker(coord) {
+    if (!this._selfMarker) return;
+    this._selfMarker.setPosition(coord);
   }
 
   // option to clean other lines before drawing
@@ -75,14 +81,14 @@ export class MapService {
   public drawStops(stops: Array<StopPrediction>, infoContent?: Array<string>) {
     if (this._stops) clearMarker(this._stops);
     this._stops = stops.map((stop, index) => {
-      const stop = addMarker(this._map, stop, ICONSET.stop(google.maps.SymbolPath.CIRCLE));
+      const stopMarker = addMarker(this._map, stop, ICONSET.stop(google.maps.SymbolPath.CIRCLE));
       if (infoContent) {
         const info = new google.maps.InfoWindow({
           content: infoContent[index]
         });
-        stop.marker.addListener('click', () => info.open(this._map, stop.marker));
+        stopMarker.marker.addListener('click', () => info.open(this._map, stopMarker.marker));
       }
-      return stop;
+      return stopMarker;
     });
   }
 
@@ -114,7 +120,7 @@ export class MapService {
     this._bound = new google.maps.LatLngBounds();
     this._placeService = new google.maps.places.PlacesService(this._map);
     getCurrentLocation().subscribe(pos => {
-      addMarker(this._map, pos, ICONSET.me(google.maps.SymbolPath.CIRCLE));
+      this._selfMarker = addMarker(this._map, pos, ICONSET.me(google.maps.SymbolPath.CIRCLE)).marker;
       // set current location
       this._currentLocation = pos;
       // set map center

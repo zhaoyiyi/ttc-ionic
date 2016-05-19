@@ -28,12 +28,16 @@ export class StopsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._mapService.currentLocation.subscribe(data => {
-      this.currentLocation = data;
-      console.log('current location', data);
-    });
-
-    Geolocation.watchPosition().subscribe( location => console.log(location) );
+    Geolocation.watchPosition()
+        .distinctUntilChanged()
+        .throttleTime(500)
+        .subscribe(location => {
+          this.currentLocation = {
+            lat: location.coords.latitude,
+            lng: location.coords.longitude
+          };
+          this._mapService.setSelfMarker(this.currentLocation);
+        });
 
 
   }

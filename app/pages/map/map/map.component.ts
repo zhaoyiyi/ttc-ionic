@@ -8,7 +8,7 @@ declare var google;
 @Component({
   selector: 'map',
   template: `
-    <div id="map" style="width: 100%; height: 95%;"></div>
+    <div id="map" style="width: 100%; height: 93%;"></div>
   `
 })
 export class MapComponent implements OnInit, OnChanges {
@@ -43,7 +43,8 @@ export class MapComponent implements OnInit, OnChanges {
         .subscribe(data => {
           console.log('drawing path');
           this._mapService.drawPath(data.coords);
-          this._mapService.drawStops(data.stops);
+          // don't draw stops for better performance
+          // this._mapService.drawStops(data.stops);
         });
   }
 
